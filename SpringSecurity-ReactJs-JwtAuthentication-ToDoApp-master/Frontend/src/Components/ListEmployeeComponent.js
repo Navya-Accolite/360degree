@@ -11,35 +11,21 @@ class ListEmployeeComponent extends Component {
                 currentemplastname:null,
                 currentempemail:null
         }
-        // this.addEmployee = this.addEmployee.bind(this);
-        // this.editEmployee = this.editEmployee.bind(this);
-        // this.deleteEmployee = this.deleteEmployee.bind(this);
+        
     }
 
-    // deleteEmployee(id){
-    //     EmployeeService.deleteEmployee(id).then( res => {
-    //         this.setState({employees: this.state.employees.filter(employee => employee.id !== id)});
-    //     });
-    // }
-    // viewEmployee(id){
-    //     this.props.history.push(`/view-employee/${id}`);
-    // }
-    // editEmployee(id){
-    //     this.props.history.push(`/add-employee/${id}`);
-    // }
+   
 
     componentDidMount(){
-        EmployeeService.getEmployees().then((res) => {
-            const data = this.props.history.location.state?.data;
-            console.log(data);
+       
+            EmployeeService.getEmployees(this.props.history.location.state?.data).then((res) => {
+           // const data = this.props.history.location.state?.data;
             this.setState({ employees: res.data});
             this.setState({currentemployeeid:res.data.id});
             this.setState({currentempfirstname:res.data.firstName});
             this.setState({currentemplastname:res.data.lastName});
             this.setState({currentempemail:res.data.emailId});
-        //     this.setState({ currentemployee: res.data.id});
-        //    console.log(this.state.employees);
-           
+        
         });
     }
 

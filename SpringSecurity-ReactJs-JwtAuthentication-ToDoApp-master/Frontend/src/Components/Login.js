@@ -10,6 +10,7 @@ function Login(props) {
 
     const onChangeUsername = (e) => {
         const username = e.target.value;
+
         setUsername(username);
     }
 
@@ -19,11 +20,19 @@ function Login(props) {
     }
 
     const handleLogin = (e) => {
+        console.log("username::",username);
         e.preventDefault();
 
         AuthService.login(username, password).then(
             () => {
-                props.history.push("/dashboard");
+                props.history.push(
+                    {
+                        pathname: '/dashboard',
+                        state: {
+                          data: username,
+                        },
+                    }
+                );
                 window.location.reload();
             },
             (error) => {
