@@ -5,7 +5,11 @@ class ListEmployeeComponent extends Component {
         super(props)
 
         this.state = {
-                employees: []
+                employees: null,
+                currentemployeeid:null,
+                currentempfirstname:null,
+                currentemplastname:null,
+                currentempemail:null
         }
         // this.addEmployee = this.addEmployee.bind(this);
         // this.editEmployee = this.editEmployee.bind(this);
@@ -26,7 +30,16 @@ class ListEmployeeComponent extends Component {
 
     componentDidMount(){
         EmployeeService.getEmployees().then((res) => {
+            const data = this.props.history.location.state?.data;
+            console.log(data);
             this.setState({ employees: res.data});
+            this.setState({currentemployeeid:res.data.id});
+            this.setState({currentempfirstname:res.data.firstName});
+            this.setState({currentemplastname:res.data.lastName});
+            this.setState({currentempemail:res.data.emailId});
+        //     this.setState({ currentemployee: res.data.id});
+        //    console.log(this.state.employees);
+           
         });
     }
 
@@ -37,13 +50,24 @@ class ListEmployeeComponent extends Component {
     render() {
         return (
             <div>
-                 <h2 className="text-center">Employees List</h2>
-                 <div className = "row">
-                    {/* <button className="btn btn-primary" onClick={this.addEmployee}> Add Employee</button> */}
-                 </div>
-                 <br></br>
-                 <div className = "row">
-                        <table className = "table table-striped table-bordered">
+                <div>
+                        {
+                            this.state.currentempemail+"hello2"
+                            
+                        }
+                        <div>
+                           
+                        </div>
+                        
+                </div>
+            </div>
+        )
+    }
+}
+
+export default ListEmployeeComponent
+
+ {/* <table className = "table table-striped table-bordered">
 
                             <thead>
                                 <tr>
@@ -65,18 +89,9 @@ class ListEmployeeComponent extends Component {
                                                  <button onClick={ () => this.editEmployee(employee.id)} className="btn btn-info">Update </button>
                                                  <button style={{marginLeft: "10px"}} onClick={ () => this.deleteEmployee(employee.id)} className="btn btn-danger">Delete </button>
                                                  <button style={{marginLeft: "10px"}} onClick={ () => this.viewEmployee(employee.id)} className="btn btn-info">View </button>
-                                             </td> */}
+                                             </td> }
                                         </tr>
                                     )
                                 }
                             </tbody>
-                        </table>
-
-                 </div>
-
-            </div>
-        )
-    }
-}
-
-export default ListEmployeeComponent
+                        </table> */}

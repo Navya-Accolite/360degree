@@ -26,6 +26,8 @@ import com.jpajwt.repository.EmployeeRepository;
 import com.jpajwt.models.UserDTO;
 import com.jpajwt.controller.MainController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/api/v1/")
@@ -34,17 +36,19 @@ public class EmployeeController {
     private EmployeeRepository employeeRepository;
 
 
+    HttpServletRequest httpServletRequest;
     @GetMapping("/employees")
+    public List<Employee> getByNames(){
+        List<Employee> list =employeeRepository.findAll();
+        //System.out.println(httpServletRequest.getUserPrincipal().getName());
+        return list;
+    }
+
+    @GetMapping("/employees/{name}")
     public Employee getByName(@PathVariable String name){
         List<Employee> list =employeeRepository.findByFirstName(name);
         return list.get(0);
     }
-
-//    @GetMapping("/employees/{name}")
-//    public Employee getByName(@PathVariable String name){
-//        List<Employee> list =employeeRepository.findByFirstName(name);
-//        return list.get(0);
-//    }
 
 
 
